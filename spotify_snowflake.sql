@@ -21,6 +21,7 @@ CREATE storage INTEGRATION spotify_init
     enabled = true
     storage_allowed_locations = ( 'Your_s3_location' );
 
+DESC INTEGRATION spotify_init;  -- This is to get the info which needs to be put in IAM user of aws (external_id and aws_iam_arn)
 
 -- file format to descride how to read csv 
 CREATE OR REPLACE FILE FORMAT csv_format
@@ -78,7 +79,8 @@ CREATE OR REPLACE PIPE spotify_pipe
 )
 FROM @spotify_stage1;
 
-
+DESC PIPE spotify_pipe;  --This is to copy the sqs url to put in the event trigger of  aws s3
+    
 select * from spotify_top_songs; -- to check pipe once when a new csv file is put in my s3 
 
 
